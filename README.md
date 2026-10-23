@@ -32,26 +32,26 @@
 
 ## Feature comparison with the official Bitwarden server
 
-| Feature | Bitwarden Free | NodeWarden | Notes |
-|---|---|---|---|
-| Web vault | ✅ | ✅ | **Original Web Vault UI** |
-| TOTP | ❌ | ✅ | Includes `steam://` support |
-| **PWA / offline** | ❌ | ✅ | **Installable, offline** |
-| **Passkey login** | ✅ | ✅ | **passwordless auth** |
-| API keys | ✅ | ✅ | CLI keys; create and rotate |
-| Login 2FA | ✅ | ✅ | TOTP, YubiKey, Passkey |
-| 2FA recovery codes | ✅ | ✅ | One-time 2FA disable codes |
-| Real-time push sync | ✅ | ✅ | All device sync |
-| Attachments / Send | ✅ | ✅ | Cloudflare R2 or KV |
-| Import / export | ✅ | ✅ | Bitwarden JSON / CSV / **ZIP** |
-| **Cloud backup center** | ❌ | ✅ | **Scheduled WebDAV / S3 incrementals** |
-| Device management | ✅ | ✅ | **Remove devices; trust controls** |
-| Login requests | ✅ | ✅ | **Cross-device login approval/unlock** |
-| **Multi-user** | ✅ | ✅ | Invite-code registration |
-| Domain rules | ✅ | ✅ | Equivalent domains, global exclusions |
-| Fill-assist | ✅ | ✅ | `POST /fill-assist`|
-| Organizations / collections / roles | ✅ | ❌ | Not implemented |
-| SSO / SCIM / directory | ✅ | ❌ | Not implemented |
+| Feature                             | Bitwarden Free | NodeWarden | Notes                                  |
+| ----------------------------------- | -------------- | ---------- | -------------------------------------- |
+| Web vault                           | ✅             | ✅         | **Original Web Vault UI**              |
+| TOTP                                | ❌             | ✅         | Includes `steam://` support            |
+| **PWA / offline**                   | ❌             | ✅         | **Installable, offline**               |
+| **Passkey login**                   | ✅             | ✅         | **passwordless auth**                  |
+| API keys                            | ✅             | ✅         | CLI keys; create and rotate            |
+| Login 2FA                           | ✅             | ✅         | TOTP, YubiKey, Passkey                 |
+| 2FA recovery codes                  | ✅             | ✅         | One-time 2FA disable codes             |
+| Real-time push sync                 | ✅             | ✅         | All device sync                        |
+| Attachments / Send                  | ✅             | ✅         | Cloudflare R2 or KV                    |
+| Import / export                     | ✅             | ✅         | Bitwarden JSON / CSV / **ZIP**         |
+| **Cloud backup center**             | ❌             | ✅         | **Scheduled WebDAV / S3 incrementals** |
+| Device management                   | ✅             | ✅         | **Remove devices; trust controls**     |
+| Login requests                      | ✅             | ✅         | **Cross-device login approval/unlock** |
+| **Multi-user**                      | ✅             | ✅         | Invite-code registration               |
+| Domain rules                        | ✅             | ✅         | Equivalent domains, global exclusions  |
+| Fill-assist                         | ✅             | ✅         | `POST /fill-assist`                    |
+| Organizations / collections / roles | ✅             | ❌         | Not implemented                        |
+| SSO / SCIM / directory              | ✅             | ❌         | Not implemented                        |
 
 ---
 
@@ -67,6 +67,7 @@
 
 ## Visual quick deploy
 
+0. First, please create a D1 DB and a R2 bucket, select APAC for location. Otherwise, it will use WEUR as default
 1. Fork the NodeWarden repository to your GitHub account
 2. Open [Cloudflare Workers & Pages](https://dash.cloudflare.com/?to=/:account/workers-and-pages/create)
 3. Choose **Continue with GitHub** and select your fork
@@ -82,14 +83,12 @@
 
 - In this flow you hand code to Cloudflare to build and deploy. `wrangler.toml` or `wrangler.kv.toml` in the repo defines binding names; the Worker initializes the D1 schema on first request—no manual SQL upload.
 
-
-> [!TIP] 
+> [!TIP]
 > Default R2 vs optional KV:
->   | Storage | Card required | Max single attachment / Send file | Free tier |
->   |---|---|---|---|
->   | R2 | Yes | 100 MB (soft limit, adjustable) | 10 GB |
->   | KV | No | 25 MiB (Cloudflare limit) | 1 GB |
-
+> | Storage | Card required | Max single attachment / Send file | Free tier |
+> |---|---|---|---|
+> | R2 | Yes | 100 MB (soft limit, adjustable) | 10 GB |
+> | KV | No | 25 MiB (Cloudflare limit) | 1 GB |
 
 ## FAQ
 
@@ -114,9 +113,6 @@
 
 - Manual: open your fork on GitHub; when the sync banner appears, click **Sync fork** → **Update branch**
 
-
-
-
 ## CLI deploy
 
 ```powershell
@@ -138,7 +134,6 @@ npm run dev:kv
 ```
 
 ---
-
 
 ## License
 
